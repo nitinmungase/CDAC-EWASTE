@@ -1,18 +1,35 @@
 package com.springrest.springrest.services;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.springrest.springrest.dao.EwasteDao;
 import com.springrest.springrest.entities.Ewaste;
 
-public interface EwasteService {
+@Service
+public class EwasteService {
 	
-	public List<Ewaste>getItems();
+	@Autowired
+	private EwasteDao ewasteDao;
 
-	public Ewaste getItem(long itemId);
 	
-	public Ewaste addItem(Ewaste item);
+	public List<Ewaste> getItems() {
+		return ewasteDao.findAll();
+	}
 
-	public Ewaste updateItem(Ewaste item);
+	
+	public Ewaste addItem(Ewaste item) {
+		return ewasteDao.save(item);
+	}
 
-	public void deleteItem(long parseLong);
+	
+	public Ewaste updateItem(Ewaste item) {
+		 ewasteDao.save(item);
+		 return item;
+	}
+
+	public void deleteItem(long parseLong) {
+		Ewaste enitity = ewasteDao.getOne(parseLong);
+		ewasteDao.delete(enitity);
+	}
 }

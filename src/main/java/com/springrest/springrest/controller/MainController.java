@@ -22,21 +22,12 @@ public class MainController {
 	@Autowired
 	private EwasteService ewasteService;
 	
-	@GetMapping("/home")
-	public String home(){
-		return "Home Page";
-	}
 	
 	@GetMapping("/items")
 	public List<Ewaste> getItems(){
 		return this.ewasteService.getItems();
 	}
 	
-	@GetMapping("/items/{itemId}")
-	public Ewaste getItem(@PathVariable String itemId) 
-	{
-		return this.ewasteService.getItem(Long.parseLong(itemId));
-	}
 
 	@PostMapping("/items")
 	public Ewaste addItem(@RequestBody Ewaste item)
@@ -44,7 +35,7 @@ public class MainController {
 		return this.ewasteService.addItem(item);
 	}
 	
-	@PutMapping("/items")
+	@PutMapping("/items/{itemId}")
 	public Ewaste updateItem(@RequestBody Ewaste item) 
 	{
 		return this.ewasteService.updateItem(item);
